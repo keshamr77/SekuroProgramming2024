@@ -3,7 +3,6 @@
 
 #define _USE_MATH_DEFINES
 #include <iostream>
-#include <iomanip>
 #include <math.h>
 using namespace std;
 
@@ -11,22 +10,59 @@ using namespace std;
 double X_Drone = 0.00;
 double Y_Drone = 0.00;
 
+// Maksimum dari panjang array history
+const int maxPanjangHistori = 100;
+
+// Array untuk menyimpan histori pada koordinat X dan Y
+double histori_X[maxPanjangHistori];
+double histori_y[maxPanjangHistori];
+int indexHistoriGerakan = 0;
+
 // Fungsi lokasi()
 void lokasi(){
-    cout << fixed << setprecision(2);
     cout << "Drone sekarang berada pada titik : (" << X_Drone << "," << Y_Drone << ")" << endl;
 }
 
 // Fungsi gerak()
 void gerak(double x, double y){
+
+    // Menambahkan hasil gerakan pada histori gerakan
+    if (indexHistoriGerakan < maxPanjangHistori){
+        histori_X[indexHistoriGerakan] = X_Drone;
+        histori_y[indexHistoriGerakan] =Y_Drone;
+        indexHistoriGerakan++;
+    }
+
     X_Drone += x;
     Y_Drone += y;
 }
 
 // Fungsi gerak_2()
 void gerak_2(double v, double t, double theta){
+
+    // Menambahkan hasil gerakan pada histori gerakan
+    if (indexHistoriGerakan < maxPanjangHistori){
+        histori_X[indexHistoriGerakan] = X_Drone;
+        histori_y[indexHistoriGerakan] =Y_Drone;
+        indexHistoriGerakan++;
+    }
+
     X_Drone += v * t * cos(theta * M_PI/180);
     Y_Drone += v * t * sin(theta * M_PI/180);
+}
+
+// Fungsi undo()
+void undo(){
+    if (indexHistoriGerakan > 0){
+        indexHistoriGerakan--;
+        X_Drone = histori_X[indexHistoriGerakan];
+        Y_Drone = histori_y[indexHistoriGerakan];
+        cout << "Undo berhasil!" << endl;
+    }
+
+    else {
+        cout << "Tidak dapat undo!" << endl;
+    }
 }
 
 
@@ -34,20 +70,20 @@ void gerak_2(double v, double t, double theta){
 int main(){
 
     // Inisialisasi variabel
-    int choice;
+    int choice, mode_gerak, undo_or_redo;
     double x , y, v, t, theta ;
-    int mode_gerak;
 
-    // Menampilkan interface program
-    cout << "[Drone Control Interface]" << endl;
-    cout << "1. Lokasi Drone Sekarang" << endl;
-    cout << "2. Gerakkan Drone"<< endl;
-    cout << "3. Keluar Dari Program" << endl;
+
 
     // Memulai loop interface program dimana input 3 akan membuat program berhenti
-    while(choice != 3) {
+    while(choice != 4) {
 
-          // Menerima input dari pengguna
+        //Interface dari "Drone Control"
+        cout << "[Drone Control Interface]" << endl;
+        cout << "1. Lokasi Drone Sekarang" << endl;
+        cout << "2. Gerakkan Drone"<< endl;
+        cout << "3. Undo atau Redo Gerakkan Drone" << endl;
+        cout << "4. Keluar Dari Program" << endl;
         cout << "Masukkan pilihan anda: ";
         cin >> choice;
 
@@ -80,15 +116,19 @@ int main(){
                     gerak_2(v, t, theta);
                 }
         }
-
-        // Menghentikan program
+        // Menjalankan fungsi undo()
         else if (choice == 3){
+            undo();
+        }
+        // Menghentikan program
+        else if (choice == 4){
             cout << "[Program Selesai]" << endl;
         }
 
         // Jika input selain 1,2,3
         else {
-            cout << "Input tidak valid, silahkan coba lagi" << endl ;
+            cout << "Input tidak valid, silahkan coba lagi" << endl;
+            break;
         }  
     }
 }
