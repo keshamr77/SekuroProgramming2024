@@ -86,7 +86,7 @@ int main(){
         cout << "[Drone Control Interface]" << endl;
         cout << "1. Lokasi Drone Sekarang" << endl;
         cout << "2. Gerakkan Drone"<< endl;
-        cout << "3. Undo atau Redo Gerakkan Drone" << endl;
+        cout << "3. Undo Gerakan Drone" << endl;
         cout << "4. Keluar Dari Program" << endl;
         cout << "Masukkan pilihan anda: ";
         cin >> choice;
