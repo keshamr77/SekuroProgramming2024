@@ -33,6 +33,7 @@ void gerak(double x, double y){
         indexHistoriGerakan++;
     }
 
+    // Menggerakkan drone berdasarkan input gerakan setiap sumbu
     X_Drone += x;
     Y_Drone += y;
 }
@@ -47,12 +48,15 @@ void gerak_2(double v, double t, double theta){
         indexHistoriGerakan++;
     }
 
+    // Menggerakkan drone berdasarkan input kecepatan waktu dan sudut
     X_Drone += v * t * cos(theta * M_PI/180);
     Y_Drone += v * t * sin(theta * M_PI/180);
 }
 
 // Fungsi undo()
 void undo(){
+
+    // Undo dapat dilakukan jika index histori diatas 0
     if (indexHistoriGerakan > 0){
         indexHistoriGerakan--;
         X_Drone = histori_X[indexHistoriGerakan];
@@ -70,7 +74,7 @@ void undo(){
 int main(){
 
     // Inisialisasi variabel
-    int choice, mode_gerak, undo_or_redo;
+    int choice, mode_gerak;
     double x , y, v, t, theta ;
 
 
@@ -116,7 +120,8 @@ int main(){
                     gerak_2(v, t, theta);
                 }
         }
-        // Menjalankan fungsi undo()
+
+        // Menjalankan fungsi undo
         else if (choice == 3){
             undo();
         }
@@ -125,10 +130,9 @@ int main(){
             cout << "[Program Selesai]" << endl;
         }
 
-        // Jika input selain 1,2,3
+        // Jika input selain 1,2,3,4
         else {
             cout << "Input tidak valid, silahkan coba lagi" << endl;
-            break;
         }  
     }
 }
