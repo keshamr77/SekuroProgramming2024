@@ -42,7 +42,7 @@ public:
             std::cout << "The matrix dimension is not valid\n";
             return Matrix(1, 1);
         }
-        else{
+
         vector<vector<double>> hasil(baris, vector<double>(kolom, 0));
         for (int i = 0; i < baris; i++)
         {
@@ -52,7 +52,6 @@ public:
             }
         }
         return Matrix(hasil);
-        }
     }
 
     // Operator pengurangan matrix
@@ -64,8 +63,6 @@ public:
             return Matrix(1, 1);
         }
 
-        else 
-        {
         vector<vector<double>> hasil(baris, vector<double>(kolom, 0));
         for (int i = 0; i < baris; i++)
         {
@@ -75,7 +72,6 @@ public:
             }
         }
         return Matrix(hasil);
-        }
     }
 
     // Operator pengali matrix
@@ -87,8 +83,6 @@ public:
             return Matrix(1, 1);
         }
 
-        else
-        {
         vector<vector<double>> hasil(baris, vector<double>(MatrixLain.kolom, 0));
         for (int i = 0; i < baris; i++)
         {
@@ -103,7 +97,6 @@ public:
             }
         }
         return Matrix(hasil);
-        }
     }
 
     // Fungsi display matrix hasil
@@ -160,7 +153,7 @@ public:
         Matrix matrixPengaliKecepatan({{vx}, {vy}, {omega}});
 
         // Menghitung hasil perkalian matriks
-        Matrix matrixKecepatan = komponenMatrix * matrixPengaliKecepatan;
+        matrixKecepatan = komponenMatrix * matrixPengaliKecepatan;
     }
 
     // Fungsi untuk mengupdate posisi chasis robot berdasarkan deltaTime
