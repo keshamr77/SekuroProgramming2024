@@ -1,0 +1,2 @@
+demo_package
+-DCATKIN_DEVEL_PREFIX=/home/keshamr77/TugasPostDay4/devel -DCMAKE_INSTALL_PREFIX=/home/keshamr77/TugasPostDay4/install -G Unix Makefiles
